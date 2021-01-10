@@ -134,8 +134,8 @@ impl Config {
 
 /// The pass generating struct and the methods that fill the buffer.
 #[derive(Debug)]
-struct PassGen {
-    cfg: Config,
+struct PassGen<'a> {
+    cfg: & 'a Config,
     rng: ThreadRng,
     buf: String,
     letters_lower_case: [char; NUMBER_OF_LETTERS], 
@@ -143,11 +143,11 @@ struct PassGen {
     signs: [char; NUMBER_SIGNS],
 }
 
-impl PassGen {
+impl <'a> PassGen <'a> {
     /// Constructor
-    fn new(cfg: & Config) -> Self {
+    fn new(cfg: & 'a Config) -> Self {
         PassGen {
-            cfg: cfg.clone(),
+            cfg: cfg, // cfg.clone(),
             rng: rand::thread_rng(),
             buf: String::from(""),
             letters_lower_case: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'],
